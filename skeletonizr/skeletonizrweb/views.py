@@ -47,47 +47,25 @@ def gen(request):
             dst_tpl = os.path.join(dirname, filename)[len(tpl_dir) + len('nodeexpress/'):]
             dst = os.path.join(path, dst_tpl)
 
-            log += 'Generating ' + dst + '\n'
-	    f = open(dst, 'w')
-	    source = render_to_string(src_tpl, data)
-	    f.write(source)
-	    f.close()
+	    if dst.find('__entity__') >= 0:
+            	log += 'Entity in ' + dst + '\n'
 
-#    f = open( pathapp + 'application.js', 'w')
-#    f.write('# Write here yout application\n\n')
-#    f.close()
+	        for entity in entities:
+	            data['entity'] = entity
 
-#    f = open( path + 'server.js', 'w')
-#    source = render_to_string('nodeexpress/' + 'server.js', data)
-#    f.write(source)
-#    f.close()
-#
-#    f = open( path + 'package.json', 'w')
-#    source = render_to_string('nodeexpress/' + 'package.json', data)
-#    f.write(source)
-#    f.close()
+		    dst_entity = dst.replace('__entity__', entity)
 
-#    for entity in entities:
-#      data['entity'] = entity
-#
-#      log += 'Creating ' + entity + '.js file...\n'
-#
-#      f = open( pathappmodules + entity + '.js', 'w')
-#      source = render_to_string('generator.html', data)
-#      f.write(source)
-#      f.close()
-#
-#    log += '\n'
-#
-#    for entity in entities:
-#      data['entity'] = entity
-#
-#      log += 'Creating ' + entity + '.html file...\n'
-#
-#      f = open( pathapptemplates + entity + '.html', 'w')
-#      source = render_to_string('generator.html', data)
-#      f.write(source)
-#      f.close()
+		    f = open(dst_entity, 'w')
+		    source = render_to_string(src_tpl, data)
+		    f.write(source)
+		    f.close()
+	    else:
+                log += 'Generating ' + dst + '\n'
+
+	        f = open(dst, 'w')
+	        source = render_to_string(src_tpl, data)
+	        f.write(source)
+	        f.close()
 
     #return HttpResponse(log, content_type='text/plain')
     #return HttpResponse(log, content_type="text/plain")

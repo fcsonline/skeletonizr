@@ -48,6 +48,7 @@ app.configure(function() {
 
     // Use the Jade template engine
     app.set('view engine', 'jade');
+    app.set('view options', { layout: false });
 
 });
 

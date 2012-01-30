@@ -5,6 +5,7 @@
     "express": "2.5.1",
     "mongoose": "1.4.0",
     "node.io" : "0.3.3",
-    "underscore": ""
+    "underscore": "",
+    "jade": "*"
   }
 }

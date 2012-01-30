@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 
 import datetime
-import os, sys
+import os, sys, shutil 
 
 def index(request):
     data = {}
@@ -21,64 +21,73 @@ def gen(request):
     log = 'Skeletorizr Log\n\n'
 
     path = '/tmp/' + project + '/'
-    pathapp = path + 'app/'
-    pathappmodules = pathapp + 'modules/'
-    pathapptemplates = pathapp + 'templates/'
 
     if not os.path.exists(path):
       os.makedirs(path)
-
-    if not os.path.exists(pathapp):
-      os.makedirs(pathapp)
-
-    if not os.path.exists(pathappmodules):
-      os.makedirs(pathappmodules)
-
-    if not os.path.exists(pathapptemplates):
-      os.makedirs(pathapptemplates)
 
     data['project'] = project
     data['entities'] = entities
 
     log += 'Creating ' + project + ' files...\n'
 
-    f = open( pathapp + 'application.js', 'w')
-    f.write('# Write here yout application\n\n')
-    f.close()
+    tpl_dir = './skeletonizrweb/templates/'
 
-    log += 'Creating server files...\n'
+    for dirname, dirnames, filenames in os.walk(tpl_dir + 'nodeexpress/'):
+        for subdirname in dirnames:
+            src = os.path.join(dirname, subdirname)
+            src_tpl = os.path.join(dirname, subdirname)[len(tpl_dir):]
+            dst_tpl = os.path.join(dirname, subdirname)[len(tpl_dir) + len('nodeexpress/'):]
+            dst = os.path.join(path, dst_tpl)
 
-    f = open( path + 'server.js', 'w')
-    source = render_to_string('nodeexpress/' + 'server.js', data)
-    f.write(source)
-    f.close()
+            log += 'Creating ' + dst + '\n'
+      	    os.makedirs(dst)
+        for filename in filenames:
+            src = os.path.join(dirname, filename)
+            src_tpl = os.path.join(dirname, filename)[len(tpl_dir):]
+            dst_tpl = os.path.join(dirname, filename)[len(tpl_dir) + len('nodeexpress/'):]
+            dst = os.path.join(path, dst_tpl)
 
-    f = open( path + 'package.json', 'w')
-    source = render_to_string('nodeexpress/' + 'package.json', data)
-    f.write(source)
-    f.close()
+            log += 'Generating ' + dst + '\n'
+	    f = open(dst, 'w')
+	    source = render_to_string(src_tpl, data)
+	    f.write(source)
+	    f.close()
 
-    for entity in entities:
-      data['entity'] = entity
+#    f = open( pathapp + 'application.js', 'w')
+#    f.write('# Write here yout application\n\n')
+#    f.close()
 
-      log += 'Creating ' + entity + '.js file...\n'
+#    f = open( path + 'server.js', 'w')
+#    source = render_to_string('nodeexpress/' + 'server.js', data)
+#    f.write(source)
+#    f.close()
+#
+#    f = open( path + 'package.json', 'w')
+#    source = render_to_string('nodeexpress/' + 'package.json', data)
+#    f.write(source)
+#    f.close()
 
-      f = open( pathappmodules + entity + '.js', 'w')
-      source = render_to_string('generator.html', data)
-      f.write(source)
-      f.close()
-
-    log += '\n'
-
-    for entity in entities:
-      data['entity'] = entity
-
-      log += 'Creating ' + entity + '.html file...\n'
-
-      f = open( pathapptemplates + entity + '.html', 'w')
-      source = render_to_string('generator.html', data)
-      f.write(source)
-      f.close()
+#    for entity in entities:
+#      data['entity'] = entity
+#
+#      log += 'Creating ' + entity + '.js file...\n'
+#
+#      f = open( pathappmodules + entity + '.js', 'w')
+#      source = render_to_string('generator.html', data)
+#      f.write(source)
+#      f.close()
+#
+#    log += '\n'
+#
+#    for entity in entities:
+#      data['entity'] = entity
+#
+#      log += 'Creating ' + entity + '.html file...\n'
+#
+#      f = open( pathapptemplates + entity + '.html', 'w')
+#      source = render_to_string('generator.html', data)
+#      f.write(source)
+#      f.close()
 
     #return HttpResponse(log, content_type='text/plain')
     #return HttpResponse(log, content_type="text/plain")

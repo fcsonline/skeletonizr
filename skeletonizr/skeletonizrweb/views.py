@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template.loader import render_to_string
 from django.http import HttpResponse
+from django.utils import simplejson
 
 import datetime
 import os, sys, shutil
@@ -18,7 +19,7 @@ def gen(request):
     project = 'skeleton'
     entities = ['customer','employee','department']
 
-    log = 'Skeletorizr Log\n\n'
+    files = []
 
     path = '/tmp/' + project + '/'
 
@@ -30,8 +31,6 @@ def gen(request):
     data['project'] = project
     data['entities'] = entities
 
-    log += 'Creating ' + project + ' files...\n'
-
     tpl_dir = './skeletonizrweb/templates/'
 
     for dirname, dirnames, filenames in os.walk(tpl_dir + 'nodeexpress/'):
@@ -41,7 +40,6 @@ def gen(request):
         dst_tpl = os.path.join(dirname, subdirname)[len(tpl_dir) + len('nodeexpress/'):]
         dst = os.path.join(path, dst_tpl)
 
-        log += 'Creating ' + dst + '\n'
         os.makedirs(dst)
 
       for filename in filenames:
@@ -51,20 +49,19 @@ def gen(request):
         dst = os.path.join(path, dst_tpl)
 
         if is_magic_path(dst):
-          log += 'Entity in ' + dst + '\n'
 
           for entity in entities:
             data['entity'] = entity
 
             dst_entity = get_magic_path (dst, data)
 
+            files.append (dst_entity)
             f = open(dst_entity, 'w')
             source = render_to_string(src_tpl, data)
             f.write(source)
             f.close()
         else:
-          log += 'Generating ' + dst + '\n'
-
+          files.append (dst)
           f = open(dst, 'w')
           source = render_to_string(src_tpl, data)
           f.write(source)
@@ -72,7 +69,9 @@ def gen(request):
 
     #return HttpResponse(log, content_type='text/plain')
     #return HttpResponse(log, content_type="text/plain")
-    return HttpResponse(log)
+
+    #return HttpResponse(log)
+    return HttpResponse(simplejson.dumps(files), mimetype='application/json')
 
 def is_magic_path(filename):
 

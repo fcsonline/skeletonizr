@@ -2,9 +2,11 @@ from django.shortcuts import render_to_response
 from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils import simplejson
+from django.core.servers.basehttp import FileWrapper
 
 import datetime
 import os, sys, shutil
+import zipfile
 
 def index(request):
     data = {}
@@ -71,7 +73,17 @@ def gen(request):
     #return HttpResponse(log, content_type="text/plain")
 
     #return HttpResponse(log)
-    return HttpResponse(simplejson.dumps(files), mimetype='application/json')
+
+    filename = 'skeleton.zip'
+    filepath = path + '../' + filename
+
+    zipper(path, filepath)
+
+    wrapper = FileWrapper(file(filepath))
+    response = HttpResponse(wrapper, content_type='application/zip')
+    response['Content-Disposition'] = 'attachment; filename=%s' % filename
+    response['Content-Length'] = os.path.getsize(filepath)
+    return response
 
 def is_magic_path(filename):
 
@@ -87,3 +99,16 @@ def get_magic_path(filename, data):
   filename = filename.replace('__entity__', data['entity'])
   filename = filename.replace('__Entity__', data['entity'].capitalize())
   return filename
+
+def zipper(dir, zip_file):
+    zip = zipfile.ZipFile(zip_file, 'w', compression=zipfile.ZIP_DEFLATED)
+    root_len = len(os.path.abspath(dir))
+    for root, dirs, files in os.walk(dir):
+        archive_root = os.path.abspath(root)[root_len:]
+        for f in files:
+            fullpath = os.path.join(root, f)
+            archive_name = os.path.join(archive_root, f)
+            print f
+            zip.write(fullpath, archive_name, zipfile.ZIP_DEFLATED)
+    zip.close()
+    return zip_file

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>skeletonizr - A Photoshop PSD file parser in Javascript</title>
+
+  <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="css/main.css" />
+
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+  <link type="text/css" rel="stylesheet" href="prettify/prettify.css" />
+  <script type="text/javascript" src="prettify/prettify.js"></script>
+
+  <script type="text/javascript" src="https://raw.github.com/fcsonline/skeletonizr/master/lib/skeletonizr"></script>
+  <script type="text/javascript" src="js/demo.js"></script>
+</head>
+<body onload="prettyPrint()">
+  <a href="http://github.com/fcsonline/skeletonizr"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/e6bef7a091f5f3138b8cd40bc3e114258dd68ddf/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub"></a>
+
+  <div class="container">
+    <header class="page-header">
+      <h1>skeletonizr</h1>
+      <p class="lead">A ultimate advanced skeleton generator</p>
+    </header>
+
+    <section id="about" class="row">
+      <div class="span6">
+        <h2>About</h2>
+        <p>Skeletonizr is a skeleton project generator. It creates a skeleton for lastest technologies, with some parameters to configure. It generates the client and the server source code ready to run.</p>
+        <p>The skeletonizr source files are written in Python and hosted on <a href="http://github.com/fcsonline/skeletonizr">Github</a>.</p>
+      </div>
+      <div class="span6">
+        <h2>Goals</h2>
+        <p>skeletonizr is far from finished, but it also has a great start. Some goals of the project are:</p>
+
+        <ul>
+          <li>Generate the client source code</li>
+          <li>Generate the server source code</li>
+          <li>Customize the CRUD entities to generate the stubs</li>
+        </ul>
+      </div>
+    </section>
+        <section id="tech">
+            <div class="page-header">
+              <h2>Technology <small>The tech behind the bones</small></h2>
+            </div>
+                <p>
+Vivamus sed turpis vel justo bibendum interdum. Aenean vehicula ultricies arcu, non pulvinar arcu convallis nec. Praesent non aliquam erat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi at purus sed enim hendrerit lobortis. Mauris neque eros, luctus sed pharetra vel, vulputate nec mauris.
+                </p>
+      <table>
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Scope</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="iconcol"><img src="img/glyphicons_023_cogwheels.png"/></td>
+            <td>Backend technology</td>
+            <td>
+              <select id="technology" name="">
+                <option value="">Select a backend technology...</option>
+                <option value="node+express" selected>Node.js + Express.js</option>
+                <option value="django" disabled>Django</option>
+                <option value="struts" disabled>Struts</option>
+              </select>
+            </td>
+            <td>Backend</td>
+          </tr>
+          <tr>
+            <td class="iconcol"><img src="img/glyphicons_140_database_lock.png"/></td>
+            <td>Backend database</td>
+            <td>
+              <select id="database" name="">
+                <option value="">Select a database technology...</option>
+                <option value="mongodb" selected>MongoDB</option>
+                <option value="couchdb" disabled>CouchDB</option>
+                <option value="sqllite" disabled>SQL Lite</option>
+                <option value="mysql" disabled>MySQL</option>
+              </select>
+            </td>
+            <td>Backend</td>
+          </tr>
+          <tr>
+            <td class="iconcol"><img src="img/glyphicons_138_computer_proces.png"/></td>
+            <td>Frontend technology</td>
+            <td>Backbone.js</td>
+            <td>Frontend</td>
+          </tr>
+          <tr>
+            <td class="iconcol"><img src="img/glyphicons_137_computer_service.png"/></td>
+            <td>Frontend template technology</td>
+            <td>Underscore.js</td>
+            <td>Frontend</td>
+          </tr>
+        </tbody>
+      </table>
+
+        </section>
+        <section id="model">
+            <div class="page-header">
+              <h2>Model <small>The model behind the bones</small></h2>
+            </div>
+                <p>
+Curabitur hendrerit rhoncus nulla sed molestie. Donec in turpis at enim elementum bibendum. Mauris dictum aliquam aliquet. Integer molestie porta viverra. Suspendisse ultrices ante blandit mauris pellentesque viverra. Mauris vitae felis at tellus ullamcorper egestas. Quisque ac rutrum enim. Cras blandit nunc quis sapien cursus dapibus.
+                </p>
+      <table>
+        <thead>
+          <tr>
+            <th>&nbsp;</th>
+            <th>Property</th>
+            <th>Value</th>
+            <th>Scope</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="iconcol"><img src="img/glyphicons_318_more-items.png"/></td>
+            <td>Section</td>
+            <td>Home</td>
+            <td>Frontend</td>
+            <td class="actioncol">
+              <a href="#">Edit</a>
+              <a href="#">Delete</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="iconcol"><img src="img/glyphicons_318_more-items.png"/></td>
+            <td>Section</td>
+            <td>Profile</td>
+            <td>Frontend</td>
+            <td class="actioncol">
+              <a href="#">Edit</a>
+              <a href="#">Delete</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="iconcol"><img src="img/glyphicons_034_old_man.png"/></td>
+            <td>Entity</td>
+            <td>Customer</td>
+            <td>Global</td>
+            <td class="actioncol">
+              <a href="#">Edit</a>
+              <a href="#">Delete</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="iconcol"><img src="img/glyphicons_263_bank.png"/></td>
+            <td>Entity</td>
+            <td>Department</td>
+            <td>Global</td>
+            <td class="actioncol">
+              <a href="#">Edit</a>
+              <a href="#">Delete</a>
+            </td>
+          </tr>
+          <tr>
+            <td class="iconcol"><img src="img/glyphicons_003_user.png"/></td>
+            <td>Entity</td>
+            <td>Employee</td>
+            <td>Global</td>
+            <td class="actioncol">
+              <a href="#">Edit</a>
+              <a href="#">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+        </section>
+        <section id="generator" class="row">
+          <div class="span12 pagination-centered">
+              <a href="/gen" class="btn large primary">TODO: Generate protoype</a>
+          </div>
+        </section>
+
+      <section id="example" class="row">
+        <div class="span12">
+          <h2>Example Output</h2>
+          <p>An extremely simple example of how skeletonizr can generate all the stubs.</p>
+          <pre class="prettyprint linenums">
+          </pre>
+        </div>
+        </section>
+        <section class="row">
+        <div class="span12 pagination-centered">
+          GLYPHICONS FREE
+          are released under Creative Commons Attribution 3.0 Unported (CC BY 3.0). <a href="www.glyphicons.com">www.glyphicons.com</a>
+        </div>
+        </section>
+      </div>
+      <footer>
+      </footer>
+    </body>
+  </html>

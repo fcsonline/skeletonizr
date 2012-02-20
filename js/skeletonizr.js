@@ -15,7 +15,6 @@ $(document).ready(function(){
      },
 
     save: function(attributes, options) {
-      console.log('Saveeeee');
     },
 
   });
@@ -37,7 +36,6 @@ $(document).ready(function(){
       events: {
         "click .edit"    : "edit",
         "click .delete"   : "clear",
-        "keypress .definition-input"      : "updateOnEnter"
       },
 
       initialize: function() {
@@ -94,8 +92,7 @@ $(document).ready(function(){
 
     events: {
       "click #new-definition":  "createNewDefinition",
-      //"keyup #new-definition":     "showTooltip",
-      //"click .definition-clear a": "clearCompleted"
+      // COMPLETE: "click #generate-skeleton": "generateSkeleton"
     },
 
     initialize: function() {
@@ -113,11 +110,6 @@ $(document).ready(function(){
     },
 
     render: function() {
-      //this.$('#definition-stats').html(this.statsTemplate({
-      //  total:      Definitions.length,
-      //  done:       Definitions.done().length,
-      //  remaining:  Definitions.remaining().length
-      //}));
     },
 
     addOne: function(modeldef) {
@@ -134,20 +126,16 @@ $(document).ready(function(){
       Definitions.create({type:'section', name:'Hola', scope: 'frontend'});
     },
 
-    clearCompleted: function() {
-      _.each(Definitions.done(), function(definition){ definition.destroy(); });
-      return false;
-    },
+    generateSkeleton: function(e) {
+      e.preventDefault();
 
-    showTooltip: function(e) {
-      var tooltip = this.$(".ui-tooltip-top");
-      var val = this.input.val();
-      tooltip.fadeOut();
-      if (this.tooltipTimeout) clearTimeout(this.tooltipTimeout);
-      if (val == '' || val == this.input.attr('placeholder')) return;
-      var show = function(){ tooltip.show().fadeIn(); };
-      this.tooltipTimeout = _.delay(show, 1000);
-    }
+      var data = JSON.stringify(Definitions);
+
+      $.post('http://skeletonizr.herokuapp.com/gen', data, function(){
+        alert('arg');
+      });
+
+    },
 
   });
 

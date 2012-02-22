@@ -10,15 +10,8 @@ import datetime
 import os, sys, shutil
 import zipfile
 
-def index(request):
-    data = {}
-
-    data['entities']= ['a','b','c']
-
-    return render_to_response('index.html', data)
-
 @csrf_exempt
-def gen(request):
+def generate(request):
 
     if request.method == 'OPTIONS':
         resp = HttpResponse()

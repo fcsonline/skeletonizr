@@ -7,8 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'skeletonizr.views.home', name='home'),
-    url(r'^$', 'skeletonizrweb.views.index'),
-    url(r'^gen', 'skeletonizrweb.views.gen'),
+    url(r'^gen', 'skeletonizrweb.views.generate'),
     # url(r'^skeletonizr/', include('skeletonizr.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

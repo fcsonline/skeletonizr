@@ -92,7 +92,7 @@ $(document).ready(function(){
 
     events: {
       "click #new-definition":  "createNewDefinition",
-      // COMPLETE: "click #generate-skeleton": "generateSkeleton"
+      "click #generate-dyn-skeleton": "generateSkeleton"
     },
 
     initialize: function() {
@@ -131,7 +131,7 @@ $(document).ready(function(){
 
       var data = JSON.stringify(Definitions);
 
-      $.post('http://skeletonizr.herokuapp.com/gen', data, function(){
+      $.post('http://localhost:9000/gen', data, function(){
         alert('arg');
       });
 

@@ -133,6 +133,8 @@ $(document).ready(function(){
 
       $.post('http://localhost:9000/generate', data, function(){
         alert('arg');
+      }).error(function(data){
+        alert('ouch' + data);
       });
 
     },

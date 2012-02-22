@@ -1,7 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template.loader import render_to_string
 from django.http import HttpResponse
-from django.utils import simplejson
 from django.core.servers.basehttp import FileWrapper
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import simplejson
@@ -15,7 +14,7 @@ def generate(request):
 
     if request.method == 'OPTIONS':
         resp = HttpResponse()
-        resp["Access-Control-Allow-Origin"] = "*"
+        resp["Access-Control-Allow-Origin"] = "fcsonline.github.com"
         resp["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
         resp["Access-Control-Allow-Headers"] = "X-Requested-With"
         return resp
@@ -29,7 +28,7 @@ def generate(request):
     if request.method == 'POST':
         json_data = simplejson.loads(request.raw_post_data)
         for definition in json_data:
-            entities.push(definition.name)
+            entities.append(str(definition['name']))
 
     files = []
 
@@ -84,11 +83,20 @@ def generate(request):
 
     #return HttpResponse(log)
 
-    filename = 'skeleton.zip'
+    filename = 'ar.zip' #hashlib.sha1(password).hexdigest() + '.zip'
     filepath = path + '../' + filename
 
     zipper(path, filepath)
 
+    result = {}
+    result['filename'] = filename
+
+    return HttpResponse(simplejson.dumps(result), mimetype='application/json')
+
+@csrf_exempt
+def download(request, filename):
+    # TODO Be careful with this
+    filepath = '/tmp/' + str(filename) + '.zip'
     wrapper = FileWrapper(file(filepath))
     response = HttpResponse(wrapper, content_type='application/zip')
     response['Content-Disposition'] = 'attachment; filename=%s' % filename

@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'skeletonizr.views.home', name='home'),
     url(r'^gen', 'skeletonizrweb.views.generate'),
+    url(r'^download/(?P<filename>[a-z0-9]+)/$', 'skeletonizrweb.views.download'),
     # url(r'^skeletonizr/', include('skeletonizr.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

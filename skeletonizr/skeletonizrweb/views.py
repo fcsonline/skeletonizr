@@ -3,6 +3,8 @@ from django.template.loader import render_to_string
 from django.http import HttpResponse
 from django.utils import simplejson
 from django.core.servers.basehttp import FileWrapper
+from django.views.decorators.csrf import csrf_exempt
+from django.utils import simplejson
 
 import datetime
 import os, sys, shutil
@@ -15,11 +17,26 @@ def index(request):
 
     return render_to_response('index.html', data)
 
+@csrf_exempt
 def gen(request):
+
+    if request.method == 'OPTIONS':
+        resp = HttpResponse()
+        resp["Access-Control-Allow-Origin"] = "*"
+        resp["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+        resp["Access-Control-Allow-Headers"] = "X-Requested-With"
+        return resp
+
     data = {}
 
     project = 'skeleton'
-    entities = ['customer','employee','department']
+    entities = []
+
+    # Read the definitions from the post request
+    if request.method == 'POST':
+        json_data = simplejson.loads(request.raw_post_data)
+        for definition in json_data:
+            entities.push(definition.name)
 
     files = []
 

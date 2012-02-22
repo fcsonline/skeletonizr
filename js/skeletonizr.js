@@ -131,7 +131,7 @@ $(document).ready(function(){
 
       var data = JSON.stringify(Definitions);
 
-      $.post('http://localhost:9000/gen', data, function(){
+      $.post('http://localhost:9000/generate', data, function(){
         alert('arg');
       });
 
